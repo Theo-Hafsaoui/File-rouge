@@ -7,10 +7,7 @@ import univtln.hafsaoui.rouge.entities.Client;
 import univtln.hafsaoui.rouge.entities.Order;
 import univtln.hafsaoui.rouge.entities.Product;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of Order using the collection
@@ -65,4 +62,14 @@ public class OrderPersist implements Order {
         this.products = new HashSet<>(products);
     }
 
+    @Override
+    public String toString() {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        cal.setTime(date);
+        return "{\"Date\":\"" + cal.get(Calendar.YEAR) +
+                "\",\"Product\": \"" + product.getName() +
+                "\",\"Suplier\": \"" + supplier.getName() +
+                "\", \"Recipient\": \"" + recipient.getName() +
+                "\"}";
+    }
 }

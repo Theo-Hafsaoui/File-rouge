@@ -1,0 +1,153 @@
+#root{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(150px,20%) 35px 80%;
+    background-image: url("./NeetBackgorund.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    margin:0;
+}
+
+body{
+    margin:0;
+    background-color:#9B0909;
+    background-color: #E2E8F0;
+}
+
+#header{
+    margin:12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+#inner_header{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    outline:3px solid white;
+    justify-content: center;
+    color:white;
+    height: 100%;
+    width: 100%;
+}
+
+#title{
+    margin-bottom: 0px;
+}
+
+#search_bar{
+    align-self: center;
+    width: 60%;
+    height: 15%;
+    min-height: 2em;
+}
+
+#search_bar_country{
+    align-self: center;
+    width: 60%;
+    height: 15%;
+    min-height: 2em;
+}
+
+#order_panel{
+    display:flex;
+    flex-direction: column;
+    margin:0;
+    padding:0;
+    background-color: #E2E8F0;
+}
+
+
+#control_panel{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr 1fr 0.5fr 1fr 0.5fr 1fr 2fr 0.5fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    background-color: black;
+    box-shadow: 0px 2px 2px #9B0909;
+    z-index: 1;
+}
+
+.ornement{
+    height:1em;
+    color:#9B0909;
+    font-size: 1.8em;
+}
+
+#left_ornement {
+  margin-left: 0.5em;
+}
+
+#right_ornement {
+    margin-right: 0.5em;
+    text-align: end;
+}
+
+button{
+    height: 2em;
+    min-width: 8em; 
+    margin-top: 0.35em;
+    background: none;
+    color: red;
+    border: 1px solid #9B0909;
+    border-radius: 4px;
+    text-align: center;
+    overflow: clip;
+    padding: 0;
+    cursor: pointer;
+}
+
+select,
+#year-select{
+    height: 2em;
+    min-width: 5em; 
+    overflow: clip;
+    margin-top: 0.35em;
+    background: none;
+    -webkit-appearance: none;
+      -moz-appearance: textfield;
+    color: #7D7D7D;
+    border: 1px solid #7D7D7D;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+}
+
+.item,
+#header_item{
+    margin: 8px;
+    height: 2em;
+    display:flex;
+    justify-content: space-around;
+    background-color: #f4f4f4;
+    background-color: white;
+    border:1px solid red;
+    border-radius: 4px;
+    box-shadow: 0.5px 3px 2px gray;
+}
+
+#header_item{
+    box-shadow: none;
+    border:0px solid #9B0909;
+    margin-bottom: 0px;
+    background-color: #E2E8F0;
+}
+.color_accent{
+    width: 10;
+    background-color: #9B0909;
+}
+
+.date,
+.suplier,
+.recipient,
+.product{
+    display:flex;
+    justify-content: center;
+    width: 100%;
+    overflow: clip;
+}
+

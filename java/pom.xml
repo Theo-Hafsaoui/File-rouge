@@ -21,12 +21,6 @@
 <dependencies>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.dataformat</groupId>
-      <artifactId>jackson-dataformat-xml</artifactId>
-      <version>2.14.2</version>
-    </dependency>
-
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
@@ -60,11 +54,6 @@
       <version>42.2.5</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <version>3.0.0</version>
-    </dependency>
 
   <!--Logger-->
     <dependency>
@@ -82,7 +71,20 @@
       <artifactId>log4j-over-slf4j</artifactId>
       <version>2.0.9</version>
     </dependency>
-<!--           -->
+
+    <dependency>
+        <groupId>org.glassfish.jersey.inject</groupId>
+        <artifactId>jersey-hk2</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+
+    <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-grizzly2-http</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+
+    <!--           -->
 </dependencies>
 
   <build>
