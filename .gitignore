@@ -27,7 +27,7 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# virtual machine crash logs, see http://www.server.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -36,12 +36,12 @@ replay_pid*
 # IDE thing
 .idea/
 .idea/**
-java/.idea/
-java/.idea/**/workspace.xml
-java/.idea/**/tasks.xml
-java/.idea/**/usage.statistics.xml
-java/.idea/**/dictionaries
-java/.idea/**/shelf
+server/.idea/
+server/.idea/**/workspace.xml
+server/.idea/**/tasks.xml
+server/.idea/**/usage.statistics.xml
+server/.idea/**/dictionaries
+server/.idea/**/shelf
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -71,11 +71,11 @@ java/.idea/**/shelf
  .idea/jarRepositories.xml
  .idea/modules.xml
  .idea/*.iml
- ./java/ProjetFilRouge.iml
- java/ProjetFilRouge.iml
+ ./server/ProjetFilRouge.iml
+ server/ProjetFilRouge.iml
  .idea/modules
  *.iml
- java/*.iml
+ server/*.iml
  *.ipr
 
 # CMake
@@ -88,7 +88,7 @@ cmake-build-*/
 *.iws
 
 # Target
-java/target/*
+server/target/*
 
 # IntelliJ
 out/
