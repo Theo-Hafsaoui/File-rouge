@@ -15,4 +15,4 @@ jobs:
         java-version: 17
 
     - name: Build project with Maven
-      run: cd ./java && mvn --batch-mode --update-snapshots verify
+      run: cd ./server && mvn --batch-mode --update-snapshots verify

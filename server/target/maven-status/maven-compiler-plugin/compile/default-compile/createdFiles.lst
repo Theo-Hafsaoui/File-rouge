@@ -1,0 +1,6 @@
+univtln/hafsaoui/rouge/entities/Client.class
+univtln/hafsaoui/rouge/entities/Product.class
+univtln/hafsaoui/rouge/entities/Order.class
+univtln/hafsaoui/rouge/entities/session/ProductSession.class
+univtln/hafsaoui/rouge/entities/session/ClientSession.class
+univtln/hafsaoui/rouge/entities/session/OrderSession.class

@@ -20,4 +20,4 @@ COPY pom.xml /app/pom.xml
 WORKDIR app
 WORKDIR /app
 RUN mvn clean compile
-CMD mvn verify
+CMD mvn exec:java

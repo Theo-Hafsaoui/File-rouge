@@ -1,7 +1,7 @@
 services:
   server:
     build:
-      context: ./java/
+      context: ./server/
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
@@ -12,15 +12,17 @@ services:
       - db
   db:
     image: postgres:15.2-alpine
-    restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=test
-      - POSTGRES_DB=Red_DB
+      - POSTGRES_DB=red-db
     ports:
       - "5432:5432"
     volumes:
-      - ./data:/var/lib/postgresql/data
+     - ./sql/Order.csv:/csvs/Order.csv
+     - ./sql/product.csv:/csvs/product.csv
+     - ./sql/country.csv:/csvs/country.csv
+     - ./sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 3s
