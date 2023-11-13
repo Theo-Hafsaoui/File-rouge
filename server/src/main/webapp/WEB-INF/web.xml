@@ -1,0 +1,19 @@
+<web-app version="6.0"
+	xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<data-source>
+		<name>java:app/jdbc/redDb</name>
+		<class-name>org.postgresql.ds.PGSimpleDataSource</class-name>
+		<server-name>localhost</server-name>
+		<port-number>5432</port-number>
+		<database-name>red-db</database-name>
+		<user>postgres</user>
+		<password>test</password>
+	</data-source>
+
+</web-app>

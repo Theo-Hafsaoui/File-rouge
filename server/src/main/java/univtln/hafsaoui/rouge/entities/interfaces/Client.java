@@ -1,8 +1,9 @@
-package univtln.hafsaoui.rouge.entities;
+package univtln.hafsaoui.rouge.entities.interfaces;
 
 import java.util.Set;
 
 public interface Client {
+    Boolean isValid();
     Set<Order> getOrders();
     String getName();
 

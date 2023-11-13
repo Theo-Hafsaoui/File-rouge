@@ -1,4 +1,4 @@
-package univtln.hafsaoui.rouge.entities;
+package univtln.hafsaoui.rouge.entities.interfaces;
 
 
 public interface Product {

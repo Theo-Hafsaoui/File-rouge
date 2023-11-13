@@ -1,5 +1,9 @@
     create schema red;
 
+
+    /**
+    Table that represent a Product
+    */
     create table red.Product
         (
             name text primary key,
@@ -8,6 +12,9 @@
 
     \copy red.Product from 'product.csv' with csv delimiter E','
 
+    /**
+    Table that represent a Client which is a Country
+    */
     create table red.Country
         (
             name text primary key,

@@ -4,14 +4,12 @@
                                  http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
-    <persistence-unit name="redPU" transaction-type="RESOURCE_LOCAL">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+    <persistence-unit name="redPU" transaction-type="JTA">
+        <jta-data-source>java:app/jdbc/redDb</jta-data-source>
+        <validation-mode>AUTO</validation-mode>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://db:5432,127.0.0.1:5432/red-db"/>
-            <property name="jakarta.persistence.jdbc.user" value="postgres"/> <property name="jakarta.persistence.jdbc.password" value="test"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.show_sql" value="false"/>
         </properties>
     </persistence-unit>
 

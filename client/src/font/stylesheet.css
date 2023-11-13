@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'OptimusPrinceps';
+    src: url('OptimusPrinceps.woff2') format('woff2'),
+        url('OptimusPrinceps.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+

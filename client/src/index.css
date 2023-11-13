@@ -1,3 +1,4 @@
+
 #root{
     display: grid;
     grid-template-columns: 1fr;
@@ -34,6 +35,9 @@ body{
 }
 
 #title{
+    margin-top:0px;
+    font-family: 'OptimusPrinceps';
+    font-size:3em;
     margin-bottom: 0px;
 }
 
@@ -151,3 +155,12 @@ select,
     overflow: clip;
 }
 
+
+@font-face {
+    font-family: 'OptimusPrinceps';
+    src: url('./font/OptimusPrinceps.woff2') format('woff2'),
+        url('./font/OptimusPrinceps.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

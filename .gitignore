@@ -4,6 +4,8 @@
 #    / \       \()__()__()__()__()/
 #TP file rouge
 # Compiled class file
+.jee/**
+.trash/**
 *.class
 
 # Log file
