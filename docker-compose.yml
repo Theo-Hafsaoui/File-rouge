@@ -5,6 +5,7 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "8080:8080"
+      - "4848:4848"
     depends_on:
       db:
         condition: service_healthy

@@ -7,6 +7,7 @@ import univtln.hafsaoui.rouge.daos.ClientDAO;
 import univtln.hafsaoui.rouge.entities.Client;
 import univtln.hafsaoui.rouge.entities.Order;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
@@ -66,10 +67,9 @@ public class ClientPersist implements Client {
 
     @Override
     public String toString() {
-        return "ClientPersist{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", orders=" + orders +
-                '}';
+
+        return "{\"name\":\"" + this.name +
+                "\",\"description\": \"" + this.description +
+                "\"}";
     }
 }

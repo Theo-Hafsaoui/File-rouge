@@ -7,12 +7,36 @@
   <groupId>univtln.hafsaoui.rouge</groupId>
   <artifactId>ProjetFilRouge</artifactId>
   <version>0.1.0</version>
+  <packaging>war</packaging>
 
   <name>ProjetFilRouge</name>
-  <url>http://www.example.com</url>
+  <url>https://github.com/DPTINFOUTLN-M2-20232024-classroom/i311-tp-fil-rouge-Theo-Hafsaoui</url>
 
   <properties>
+    <app.name>server</app.name>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <projet.report.sourceEncoding>UTF-8</projet.report.sourceEncoding>
+
+    <junit-jupiter.version>5.10.0</junit-jupiter.version>
+    <lombok.version>1.18.30</lombok.version>
+
+    <!--Log -->
+    <logback-classic.version>1.4.11</logback-classic.version>
+    <slf4j.version>2.0.9</slf4j.version>
+
+    <surefire.mvn.plugin.version>3.2.1</surefire.mvn.plugin.version>
+    <assembly.mvn.plugin.version>3.6.0</assembly.mvn.plugin.version>
+
+
+    <postgresql.version>42.6.0</postgresql.version>
+    <hibernate.version>5.6.15.Final</hibernate.version>
+
+    <mainClass>univtln.hafsaoui.rouge.Server</mainClass>
+    <jakarta-activation.version>2.1.2</jakarta-activation.version>
+    <payara.domainName>None</payara.domainName>
+    <payara.autoBindHttp>false</payara.autoBindHttp>
+
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
@@ -20,18 +44,69 @@
 
 <dependencies>
 
+    <!-- JEE -->
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>${jakarta-activation.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.faces</groupId>
+      <artifactId>jakarta.faces-api</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>10.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-web-api</artifactId>
+      <version>9.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13</version>
       <scope>test</scope>
     </dependency>
 
-<!-- Hibernate -->
+    <!-- Database -->
     <dependency>
       <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>6.2.2.Final</version>
+      <version>6.3.1.Final</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>8.0.1.Final</version>
     </dependency>
 
     <dependency>
@@ -39,92 +114,75 @@
       <artifactId>eclipselink</artifactId>
       <version>2.7.7</version>
     </dependency>
-<!--           -->
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.24</version>
-      <scope>provided</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.5</version>
+      <version>${postgresql.version}</version>
     </dependency>
 
+    <!-- Lombok & Log  -->
 
-  <!--Logger-->
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <version>2.0.9</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jul-to-slf4j</artifactId>
-      <version>2.0.9</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>log4j-over-slf4j</artifactId>
-      <version>2.0.9</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
-        <groupId>org.glassfish.jersey.inject</groupId>
-        <artifactId>jersey-hk2</artifactId>
-        <version>3.0.0</version>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback-classic.version}</version>
     </dependency>
 
-    <dependency>
-        <groupId>org.glassfish.jersey.containers</groupId>
-        <artifactId>jersey-container-grizzly2-http</artifactId>
-        <version>3.0.0</version>
-    </dependency>
-
-    <!--           -->
 </dependencies>
 
-  <build>
+<build>
+    <finalName>server</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.8.1</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
         </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+
         <plugin>
           <artifactId>maven-site-plugin</artifactId>
           <version>3.7.1</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
@@ -144,6 +202,15 @@
                   <mainClass>univtln.hafsaoui.rouge.Server</mainClass>
               </configuration>
           </plugin>
+
+          <plugin>
+              <artifactId>maven-war-plugin</artifactId>
+              <version>3.3.2</version>
+              <configuration>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+              </configuration>
+          </plugin>
+
       </plugins>
     </pluginManagement>
   </build>

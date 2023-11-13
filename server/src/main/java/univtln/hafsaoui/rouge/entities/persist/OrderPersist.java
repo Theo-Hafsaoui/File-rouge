@@ -66,10 +66,12 @@ public class OrderPersist implements Order {
     public String toString() {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         cal.setTime(date);
+
         return "{\"Date\":\"" + cal.get(Calendar.YEAR) +
                 "\",\"Product\": \"" + product.getName() +
                 "\",\"Suplier\": \"" + supplier.getName() +
                 "\", \"Recipient\": \"" + recipient.getName() +
                 "\"}";
+
     }
 }

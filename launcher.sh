@@ -6,7 +6,8 @@ usage() { echo "No correct flag given" 1>&2; exit 1; }
 while getopts "cd" arg; do
   case $arg in
         c)
-            echo "docker compose";;
+            echo "docker compose";
+            docker compose down && docker compose build  && docker compose up | fzf --tac;;
         d)
             echo "decoupled mode"
             docker run  -e POSTGRES_PASSWORD="test" -e POSTGRES_DB=red-db -d -p 5432:5432 postgres;
