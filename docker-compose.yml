@@ -1,8 +1,10 @@
 services:
+  #[Backend]JEE server api
   server:
+    image: ghcr.io/theo-hafsaoui/rouge-server
     build:
       context: ./server/
-      dockerfile: ./Dockerfile
+      dockerfile: ../docker/Dockerfile_server
     ports:
       - "8080:8080"
       - "4848:4848"
@@ -11,11 +13,31 @@ services:
         condition: service_healthy
     links:
       - db
+    healthcheck:
+      test: [ "CMD-SHELL", "/healthcheck.sh"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+
+  #[Backend]Kafka message-broker
+  broker:
+    image: quay.io/strimzi/kafka:latest-kafka-2.8.1-amd64
+    ports:
+      - "9092:9092"
+    environment:
+      - LOG_DIR=/tmp/logs
+    command: >
+      /bin/sh -c '
+      export CLUSTER_ID=$$(bin/kafka-storage.sh random-uuid) &&
+      bin/kafka-storage.sh format -t $$CLUSTER_ID -c config/kraft/server.properties &&
+      bin/kafka-server-start.sh config/kraft/server.properties'
+
+  #[Backend]Database
   db:
     image: postgres:15.2-alpine
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=test
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=red-db
     ports:
       - "5432:5432"
@@ -29,3 +51,22 @@ services:
       interval: 3s
       timeout: 3s
       retries: 15
+
+  #[Frontend]React web-client
+  client:
+    image: ghcr.io/theo-hafsaoui/rouge-client
+    build:
+      context: ./client/
+      dockerfile: ../docker/Dockerfile_client
+    ports:
+      - "3000:3000"
+    command: npm start
+    develop:
+      watch:
+        - action: sync
+          path: ./client/src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json

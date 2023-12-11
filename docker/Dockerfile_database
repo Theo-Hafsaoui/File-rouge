@@ -1,4 +1,4 @@
-#Temporary dockerfile to setup database
+#DockerFile for simple test in decoupled mode
 FROM postgres:12-bullseye
 COPY init_db.sql /docker-entrypoint-initdb.d/
 COPY country.csv /docker-entrypoint-initdb.d/

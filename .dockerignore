@@ -1,0 +1,10 @@
+.git
+*Dockerfile*
+*docker-compose*
+node_modules
+.idea
+build
+target
+.gitignore
+*.iml
+Dockerfile

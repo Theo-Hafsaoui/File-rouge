@@ -2,6 +2,10 @@ package univtln.hafsaoui.rouge.api;
 
 
 import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
@@ -10,18 +14,19 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 import univtln.hafsaoui.rouge.daos.Dto;
 import univtln.hafsaoui.rouge.daos.jpa.ClientDAO;
+import univtln.hafsaoui.rouge.entities.ImplClient;
+import univtln.hafsaoui.rouge.events.Producer;
 
-import java.io.StringReader;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Path("/clients")
 public class Client implements Resource{
 
     @Inject  ClientDAO dao;
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,14 +56,27 @@ public class Client implements Resource{
     }
 
     /**
-     * Endpoint to put a specific client from a name
+     * Endpoint to put a specific client from a json
      *
      * @return a String
      */
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public Response add(String name) {
-        return Response.noContent().build();
+    public Response add(String json) {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        ImplClient newClient = ImplClient.fromJson(json);
+        if (newClient == null){
+            return this.errorEntity();
+        }
+        Set<ConstraintViolation<ImplClient>> violations = validator.validate(newClient);
+        if (!violations.isEmpty()) {
+            log.error("Err: Contrain violation"+violations.toString());
+            return this.violation();
+        }
+        Producer producer = Producer.of();
+        producer.send_client(newClient,"CLIENT-PUT");
+        return this.EntityAdded();
     }
 
     /**
@@ -68,8 +86,14 @@ public class Client implements Resource{
      */
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(String name) {
-        return Response.noContent().build();
+    public Response delete(String json) {
+        ImplClient newClient = ImplClient.fromJson(json);
+        if (newClient == null){
+            return Response.status(402).build();
+        }
+        Producer producer = Producer.of();
+        producer.send_client(newClient,"CLIENT-DELETE");
+        return Response.status(201).build();
     }
 
     /**

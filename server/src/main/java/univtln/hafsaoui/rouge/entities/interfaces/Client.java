@@ -10,4 +10,6 @@ public interface Client {
     void addOrder(Order order);
     void setName(String name);
 
+    String getJson();
+
 }

@@ -22,6 +22,7 @@ public class Server {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        log.error("Kafka consumer launched");
         log.warn("l'API rest est active <C-c> pour la fermer");
     }
 }

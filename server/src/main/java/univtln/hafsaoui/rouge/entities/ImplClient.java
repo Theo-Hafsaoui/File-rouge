@@ -1,14 +1,18 @@
 package univtln.hafsaoui.rouge.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import univtln.hafsaoui.rouge.daos.jpa.ClientDAO;
+import univtln.hafsaoui.rouge.entities.annotation.LegalCountry;
 import univtln.hafsaoui.rouge.entities.interfaces.Client;
 import univtln.hafsaoui.rouge.entities.interfaces.Order;
 
@@ -21,22 +25,30 @@ import java.util.Set;
 @Slf4j
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "Country", schema = "red")
 public class ImplClient implements Client {
     @Id
     @Column(name = "name", unique = true, nullable = false, length = 255)
     @NotNull(message = "Name cannot be null")
+    @LegalCountry
     private String name;
     private String description;
     @Transient
     private Set<Order> orders;
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        return orders != null ? Set.copyOf(orders) : null;
+    }
+
 
     /**
      * Static factory of ClientSession
      * @param name
      * @return
      */
-    public static Client of(String name){
+    public static ImplClient of(String name){
         return new ImplClient(name);
     }
 
@@ -66,5 +78,21 @@ public class ImplClient implements Client {
         return validator.validate(this).isEmpty();
     }
 
+    @Override
+    public String getJson() {
+        return "{\"name\":\"" + this.name +
+                "\",\"description\": \"" + this.description +
+                "\"}";
+    }
 
+    public static ImplClient fromJson(String json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ImplClient client = objectMapper.readValue(json, ImplClient.class);
+            return client;
+        } catch (JsonProcessingException e) {
+            log.error("Err: failed to dserialized "+e.getMessage());
+            return null;
+        }
+    }
 }
