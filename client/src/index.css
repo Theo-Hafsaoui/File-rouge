@@ -1,4 +1,3 @@
-
 #root{
     display: grid;
     grid-template-columns: 1fr;
@@ -9,9 +8,45 @@
     margin:0;
 }
 
+.delete{
+    color:#586F99;
+    background-color: var(--card-bg-color);
+    border: none;
+    height: 1em;
+    min-width: 1em;
+    margin-right: 10px;
+}
+
+.delete:hover{
+  color:#DC322F;
+}
+
+.delete:active{
+  color:red;
+}
+
+dialog{
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+    text-align: center;
+
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+}
+
+input,
+textarea{
+    width: 100%
+
+}
+
+
 body{
     margin:0;
-    background-color:#9B0909;
     background-color: #E2E8F0;
 }
 
@@ -104,6 +139,29 @@ button{
     cursor: pointer;
 }
 
+dialog form button[type="submit"],
+#cancel{
+    background-color: #91aecf;
+    margin-left: 1em;
+    margin-right: 1em;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+}
+
+dialog form button[type="submit"]:hover,
+dialog form button[type="submit"]:focus,
+#cancel:hover,
+#cancel:focus{
+    background-color: #3c4856;
+}
+
+p{
+    margin:0.3em;
+
+}
+
 select,
 #year-select{
     height: 2em;
@@ -140,6 +198,37 @@ select,
     margin-bottom: 0px;
     background-color: #E2E8F0;
 }
+
+#header_crud{
+    box-shadow: none;
+    border:0px solid #9B0909;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+::backdrop {
+  background-image: linear-gradient(
+    45deg,
+    magenta,
+    rebeccapurple,
+    dodgerblue,
+    green
+  );
+  opacity: 0.75;
+}
+
+
+#add_client,
+#rm_client{
+    background: #c4f1ff;
+    border: 1px solid #afacbf;
+    margin: 0.5em;
+    margin-top: 0;
+}
+
+
+
 .color_accent{
     width: 10;
     background-color: #9B0909;
@@ -164,3 +253,4 @@ select,
     font-style: normal;
     font-display: swap;
 }
+

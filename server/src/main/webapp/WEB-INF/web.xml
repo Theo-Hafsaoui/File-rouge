@@ -9,7 +9,7 @@
 	<data-source>
 		<name>java:app/jdbc/redDb</name>
 		<class-name>org.postgresql.ds.PGSimpleDataSource</class-name>
-		<server-name>localhost</server-name>
+		<server-name>localhost,db</server-name>
 		<port-number>5432</port-number>
 		<database-name>red-db</database-name>
 		<user>postgres</user>

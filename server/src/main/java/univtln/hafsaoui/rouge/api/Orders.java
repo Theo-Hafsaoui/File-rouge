@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.Response;
 import lombok.extern.slf4j.Slf4j;
 import univtln.hafsaoui.rouge.daos.Dto;
 import univtln.hafsaoui.rouge.daos.jpa.OrderDAO;
+import univtln.hafsaoui.rouge.events.Producer;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -67,8 +68,15 @@ public class Orders implements Resource {
      */
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(String name) {
-        return Response.status(501).build();
+    public Response delete(@Context HttpHeaders headers, String order) {
+        Producer producer = Producer.of();
+        producer.send_order(order,"ORDER-DELETE");
+        return this.EntityAdded();
+    }
+
+    @Override
+    public Response delete(String json) {
+        return null;
     }
 
     /**

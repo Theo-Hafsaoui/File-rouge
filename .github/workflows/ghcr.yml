@@ -1,0 +1,48 @@
+name: Publish Docker Compose image
+
+on:
+  push:
+    branches: ['main', 'develop']
+
+env:
+  POSTGRES_PASSWORD: test
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  COMPOSE_PROJECT_NAME: fil-rouge
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get remove docker-compose -y
+          wget https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 && sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && docker-compose --version
+
+      - name: Extract metadata for Docker naming
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        run: |
+          docker-compose -v
+          docker-compose build
+          docker-compose push
+        env:
+          DOCKER_BUILDKIT: 1

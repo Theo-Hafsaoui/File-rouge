@@ -28,9 +28,55 @@ public interface Resource {
                 .build();
     }
 
+
+    /**
+     * Return that a violation happened
+     * @return
+     */
+    public default Response errorEntity() {
+        return Response
+                .status(422)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
+    }
+
+    /**
+     * Return that a violation happened
+     * @return
+     */
+    public default Response EntityAdded() {
+        return Response
+                .status(201)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
+    }
+
+    /**
+     * Return that a violation happened
+     * @return
+     */
+    public default Response violation() {
+        return Response
+                .status(406)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
+    }
+
     public Response getAll(@Context HttpHeaders headers, @QueryParam("page") Integer page);
     public Response get(@PathParam("name") String name) ;
     public Response help() ;
-    public Response delete(String name);
+    public Response delete(@PathParam("name") String json) ;
     public Response add(String name);
 }

@@ -6,4 +6,6 @@ public interface Product {
     String getDescription ();
     void setName (String name);
     void setDescription (String name);
+
+    String getJson();
 }

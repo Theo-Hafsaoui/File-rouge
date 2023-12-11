@@ -13,6 +13,6 @@
 						  datasource-classname="org.postgresql.ds.PGSimpleDataSource">
 		<property name="user" value="postgres"/>
 		<property name="password" value="test"/>
-		<property name="url" value="jdbc:postgresql://db:5432,127.0.0.1:5432/red-db"/>
+                <property name="url" value="jdbc:postgresql://db:5432/red-db,0.0.0.1:5432"/>
 	</jdbc-connection-pool>
 </resources>

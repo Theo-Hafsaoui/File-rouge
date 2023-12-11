@@ -1,9 +1,13 @@
 package univtln.hafsaoui.rouge.entities;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import univtln.hafsaoui.rouge.entities.interfaces.Order;
 import univtln.hafsaoui.rouge.entities.interfaces.Product;
 
@@ -13,8 +17,10 @@ import java.util.*;
  * Implementation of Order using the collection
  */
 @Setter
+@Slf4j
 @Getter
 @Entity
+@EqualsAndHashCode
 @Table(name = "Order", schema = "red")
 public class ImplOrder implements Order {
     @Id
@@ -58,6 +64,16 @@ public class ImplOrder implements Order {
         this.recipient = recipient;
     }
 
+    public static ImplOrder fromJson(String json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ImplOrder order = objectMapper.readValue(json, ImplOrder.class);
+            return order;
+        } catch (JsonProcessingException e) {
+            log.error("Err: failed to dserialized "+e.getMessage());
+            return null;
+        }
+    }
 
     @Override
     public void setProducts(Collection<Product> products) {

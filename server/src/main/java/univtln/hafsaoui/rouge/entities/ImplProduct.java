@@ -1,18 +1,23 @@
 package univtln.hafsaoui.rouge.entities;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import univtln.hafsaoui.rouge.daos.jpa.ProductDAO;
+import lombok.extern.slf4j.Slf4j;
 import univtln.hafsaoui.rouge.entities.interfaces.Product;
 
 /**
  * Implementation of product using the collection
  */
 @Getter
+@Slf4j
 @Setter
 @Entity
+@EqualsAndHashCode
 @Table(name = "Product", schema = "red")
 public class ImplProduct implements Product {
     @Id
@@ -34,6 +39,24 @@ public class ImplProduct implements Product {
 
     private ImplProduct(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getJson() {
+        return "{\"name\":\"" + this.name +
+                "\",\"description\": \"" + this.description +
+                "\"}";
+    }
+
+    public static ImplProduct fromJson(String json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ImplProduct product = objectMapper.readValue(json, ImplProduct.class);
+            return product;
+        } catch (JsonProcessingException e) {
+            log.error("Err: failed to dserialized "+e.getMessage());
+            return null;
+        }
     }
 
 }

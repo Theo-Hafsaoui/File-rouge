@@ -1,0 +1,28 @@
+name: Integration tests
+
+on:
+  push:
+    branches: ['main', 'develop']
+
+jobs:
+  Integration_tests:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_PASSWORD: test
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get remove docker-compose -y
+          wget https://github.com/docker/compose/releases/download/v2.23.3/docker-compose-linux-x86_64 && sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose && docker-compose --version
+
+      - name: Build and tests
+        run: |
+          docker-compose build
+          chmod +x ./launcher.sh && ./launcher.sh -t
