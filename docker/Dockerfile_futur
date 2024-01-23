@@ -1,0 +1,12 @@
+FROM maven:3.9 as build-app
+COPY src /server/src
+COPY pom.xml /server/pom.xml
+WORKDIR /server
+RUN mvn clean package
+
+
+FROM payara/server-full:6.2023.10-jdk17
+COPY healthcheck.sh /
+USER root
+RUN chmod +x /healthcheck.sh
+COPY --from=build-app /server/target/server.war $DEPLOY_DIR

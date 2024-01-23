@@ -18,7 +18,7 @@ while getopts "cdt" arg; do
         c)
             echo "--docker compose--";
             {
-                docker compose down && docker compose build  && docker compose watch | fzf --tac
+                docker compose down && docker compose build  && docker compose watch 
             }&
             sleep 30 && firefox http://localhost:3000/;;
 

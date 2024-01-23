@@ -28,6 +28,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @Table(name = "Country", schema = "red")
 public class ImplClient implements Client {
+
     @Id
     @Column(name = "name", unique = true, nullable = false, length = 255)
     @NotNull(message = "Name cannot be null")

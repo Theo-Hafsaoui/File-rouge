@@ -1,6 +1,5 @@
     create schema red;
 
-
     /**
     Table that represent a Product
     */
@@ -38,6 +37,21 @@
         );
 
     \copy red.Order from 'Order.csv' with csv delimiter E','
+
+    create table red.Delivery
+        (
+            id serial,
+            Date timestamptz,
+            status text
+        );
+        
+    create table red.Invoice
+        (
+            id serial,
+            Order_invoice text,
+            Delivery_invoice text,
+            description text
+        );
 
     select count(*) from red.Country ;
     select count(*) from red.Product ;
